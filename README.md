@@ -3,6 +3,7 @@
 ----
 ![Screenshot (388)](https://github.com/user-attachments/assets/168e9e9b-76a7-4188-a0a6-dc5bc845b789)
 
+# Tech Used
 - **Backend:** Flask (Python)
 - **Frontend:** HTML, CSS, JavaScript
 - **Mapping Library:** OpenLayers / Geoserver
