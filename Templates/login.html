@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+<!-- Set the page title -->
+{% block title %}Login{% endblock %}
+
+<!-- Main content block -->
+{% block content %}
+<div class="login-container">
+  <!-- Login card -->
+  <div class="card mx-auto" style="max-width: 400px">
+    <div class="card-body">
+      <!-- Card title -->
+      <h3 class="card-title text-center">Login</h3>
+
+      <!-- Login image container -->
+      <div class="login-image-container">
+        <img
+          src="{{ url_for('static', filename='images/image.jpg') }}"
+          alt="Login Image"
+          class="img-fluid mx-auto d-block mb-3"
+        />
+      </div>
+
+      <!-- Login form -->
+      <form method="POST" action="{{ url_for('login') }}">
+        <!-- Username input -->
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input
+            type="text"
+            class="form-control"
+            name="username"
+            id="username"
+            placeholder="Enter your username"
+            required
+          />
+        </div>
+
+        <!-- Password input -->
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            name="password"
+            id="password"
+            placeholder="Enter your password"
+            required
+          />
+        </div>
+
+        <!-- Submit button -->
+        <button type="submit" class="btn btn-primary btn-block">Login</button>
+      </form>
+
+      <!-- Registration link -->
+      <p class="text-center mt-3">
+        Don't have an account?
+        <a href="{{ url_for('register') }}">Register here</a>
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock %}

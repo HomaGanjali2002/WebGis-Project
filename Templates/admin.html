@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Admin Panel</title>
+    <!-- Link to the external CSS file -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <!-- Main container to center the admin card and table -->
+    <div class="admin-container" style="width: 1400px; margin: 20px auto">
+      <!-- Card for user management -->
+      <div class="card">
+        <div class="card-body">
+          <!-- Card title -->
+          <h3 class="card-title">User Management</h3>
+          <!-- Table container -->
+          <div class="table-container">
+            <!-- User data table -->
+            <table id="data-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Username</th>
+                  <th>Admin</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Loop through users and display their data -->
+                {% for user in users %}
+                <tr>
+                  <td>{{ user[0] }}</td> <!-- User ID -->
+                  <td>{{ user[1] }}</td> <!-- Username -->
+                  <td>{{ user[2] }}</td> <!-- Admin status -->
+                  <td>
+                    <!-- Delete button for each user -->
+                    <a
+                      href="{{ url_for('delete_user', user_id=user[0]) }}"
+                      class="btn btn-danger btn-sm"
+                      >Delete</a
+                    >
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Dynamic page title -->
+  <title>{% block title %}Taxi Demand Map{% endblock %}</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <!-- Additional head content from child templates -->
+  {% block head %}{% endblock %}
+</head>
+<!-- Apply specific body classes for login and register pages -->
+<body class="{% if 'login' in request.path %}login-page{% elif 'register' in request.path %}register-page{% endif %}">
+  <!-- Main container for content -->
+  <div class="container mt-4">
+    <!-- Display flashed messages -->
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="alert alert-info">
+          {% for message in messages %}
+            <p>{{ message }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+    <!-- Content block for child templates -->
+    {% block content %}{% endblock %}
+  </div>
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+  <!-- Additional scripts from child templates -->
+  {% block scripts %}{% endblock %}
+</body>
+</html>

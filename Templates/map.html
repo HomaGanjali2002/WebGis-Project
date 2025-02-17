@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+<!-- Set the page title -->
+{% block title %}Taxi Demand Map{% endblock %}
+
+<!-- Main content block -->
+{% block content %}
+<div class="map-container">
+  <!-- Sidebar on the left -->
+  <div id="sidebar">
+    <h3>Taxi Demand</h3>
+    <ul class="list-group">
+      <!-- Admin-specific link -->
+      {% if session.get('is_admin') %}  
+      <li class="list-group-item"><a href="{{ url_for('admin') }}">Users</a></li>
+      {% endif %}
+      <!-- General navigation links -->
+      <li class="list-group-item"><a href="">Taxies</a></li>
+      <li class="list-group-item"><a href="">My profile</a></li>
+      <li class="list-group-item"><a href="">Settings</a></li>
+      <li class="list-group-item"><a href="{{ url_for('logout') }}">Logout</a></li>
+    </ul>
+  </div>
+
+  <!-- Map container -->
+  <div class="map-box">
+    <div id="map">
+      <!-- Legend for the map -->
+      <div id="legend">
+        <img
+          src="http://localhost:8080/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.1.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=WebGis_Project:taxi_zones&STYLE=taxi_demand&TRANSPARENT=true"
+          alt="Taxi Demand Legend"
+        />
+      </div>
+      <!-- Popup for displaying information -->
+      <div id="popup" class="ol-popup"></div>
+    </div>
+  </div>
+
+  <!-- Control Panel (Right) -->
+  <div class="controls">
+    <!-- Controls card -->
+    <div class="card mb-3">
+      <div class="card-header">Controls</div>
+      <div class="card-body">
+        <!-- Day selection dropdown -->
+        <div class="form-group">
+          <label for="day">Day:</label>
+          <select id="day" class="form-control">
+            <option value="Sunday">Sunday</option>
+            <option value="Monday">Monday</option>
+            <option value="Tuesday">Tuesday</option>
+            <option value="Wednesday">Wednesday</option>
+            <option value="Thursday">Thursday</option>
+            <option value="Friday">Friday</option>
+            <option value="Saturday">Saturday</option>
+          </select>
+        </div>
+        <!-- Hour selection dropdown -->
+        <div class="form-group">
+          <label for="hour">Hour:</label>
+          <select id="hour" class="form-control">
+            {% for i in range(24) %}
+            <option value="{{ '%02d' % i }}">{{ '%02d' % i }}:00</option>
+            {% endfor %}
+          </select>
+        </div>
+        <!-- Load data button -->
+        <button id="loadButton" class="btn btn-primary btn-block" onclick="loadTaxiDemandData()">Load Data</button>
+      </div>
+    </div>
+    <!-- Landuse Demand card -->
+    <div class="card">
+      <div class="card-header">Landuse Demand</div>
+      <div class="card-body" id="landuse-content"></div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+<!-- Additional scripts block -->
+{% block scripts %}
+<!-- OpenLayers library -->
+<script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.5.0/build/ol.js"></script>
+<!-- Custom scripts -->
+<script src="{{ url_for('static', filename='scripts.js') }}"></script>
+{% endblock %}
